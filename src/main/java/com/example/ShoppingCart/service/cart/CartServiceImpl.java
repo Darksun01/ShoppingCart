@@ -1,9 +1,10 @@
 package com.example.ShoppingCart.service.cart;
 
 import com.example.ShoppingCart.model.Cart;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
-import com.example.ShoppingCart.service.repository.CartItemRepository;
-import com.example.ShoppingCart.service.repository.CartRepository;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.repository.CartItemRepository;
+import com.example.ShoppingCart.repository.CartRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,14 @@ public class CartServiceImpl implements CartService{
     @Override
     public Cart getCart(Long id) {
         Cart cart = cartRepository.findById(id)
+
                 .orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
         BigDecimal totalAmount = cart.getTotalAmount();
         cart.setTotalAmount(totalAmount);
         return cartRepository.save(cart);
     }
 
+    @Transactional()
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);
@@ -50,5 +53,10 @@ public class CartServiceImpl implements CartService{
         Long newCartId = cartIdGenerator.incrementAndGet();
         newCart.setId(newCartId);
         return cartRepository.save(newCart).getId();
+    }
+
+    @Override
+    public Cart getCartByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
     }
 }

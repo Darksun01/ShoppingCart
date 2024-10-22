@@ -1,9 +1,9 @@
 package com.example.ShoppingCart.service.category;
 
 import com.example.ShoppingCart.model.Category;
-import com.example.ShoppingCart.service.exceptions.AlreadyExistsException;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
-import com.example.ShoppingCart.service.repository.CategoryRepository;
+import com.example.ShoppingCart.exceptions.AlreadyExistsException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

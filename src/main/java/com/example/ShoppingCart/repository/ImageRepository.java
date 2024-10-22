@@ -1,4 +1,4 @@
-package com.example.ShoppingCart.service.repository;
+package com.example.ShoppingCart.repository;
 
 import com.example.ShoppingCart.model.Image;
 import com.example.ShoppingCart.model.Product;

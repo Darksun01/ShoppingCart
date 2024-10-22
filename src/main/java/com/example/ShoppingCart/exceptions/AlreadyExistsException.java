@@ -1,4 +1,4 @@
-package com.example.ShoppingCart.service.exceptions;
+package com.example.ShoppingCart.exceptions;
 
 public class AlreadyExistsException extends RuntimeException {
     public AlreadyExistsException(String msg) {

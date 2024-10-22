@@ -3,9 +3,9 @@ package com.example.ShoppingCart.service.image;
 import com.example.ShoppingCart.dto.ImageDto;
 import com.example.ShoppingCart.model.Image;
 import com.example.ShoppingCart.model.Product;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import com.example.ShoppingCart.service.product.ProductService;
-import com.example.ShoppingCart.service.repository.ImageRepository;
+import com.example.ShoppingCart.repository.ImageRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

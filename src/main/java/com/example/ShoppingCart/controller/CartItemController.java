@@ -3,7 +3,7 @@ package com.example.ShoppingCart.controller;
 import com.example.ShoppingCart.Response.ApiResponse;
 import com.example.ShoppingCart.service.cart.CartItemService;
 import com.example.ShoppingCart.service.cart.CartService;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

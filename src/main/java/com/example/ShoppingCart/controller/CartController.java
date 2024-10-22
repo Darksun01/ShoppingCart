@@ -3,7 +3,7 @@ package com.example.ShoppingCart.controller;
 import com.example.ShoppingCart.Response.ApiResponse;
 import com.example.ShoppingCart.model.Cart;
 import com.example.ShoppingCart.service.cart.CartService;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class CartController {
     public ResponseEntity<ApiResponse> clearCart(@PathVariable Long cartId){
         try {
             cartService.clearCart(cartId);
-            return ResponseEntity.ok(new ApiResponse("Clear Cart Sucess", null));
+            return ResponseEntity.ok(new ApiResponse("Clear Cart Success", null));
         } catch (ResourceNotFoundException e) {
             return  ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

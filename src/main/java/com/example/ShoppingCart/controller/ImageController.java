@@ -3,17 +3,15 @@ package com.example.ShoppingCart.controller;
 import com.example.ShoppingCart.Response.ApiResponse;
 import com.example.ShoppingCart.dto.ImageDto;
 import com.example.ShoppingCart.model.Image;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import com.example.ShoppingCart.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.SQLException;

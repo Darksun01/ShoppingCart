@@ -3,11 +3,11 @@ package com.example.ShoppingCart.service.cart;
 import com.example.ShoppingCart.model.Cart;
 import com.example.ShoppingCart.model.CartItem;
 import com.example.ShoppingCart.model.Product;
-import com.example.ShoppingCart.service.exceptions.ResourceNotFoundException;
+import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import com.example.ShoppingCart.service.product.ProductService;
-import com.example.ShoppingCart.service.repository.CartItemRepository;
-import com.example.ShoppingCart.service.repository.CartRepository;
-import com.example.ShoppingCart.service.repository.ProductRepository;
+import com.example.ShoppingCart.repository.CartItemRepository;
+import com.example.ShoppingCart.repository.CartRepository;
+import com.example.ShoppingCart.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
