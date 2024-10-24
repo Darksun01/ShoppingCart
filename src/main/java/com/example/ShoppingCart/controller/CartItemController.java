@@ -1,6 +1,9 @@
 package com.example.ShoppingCart.controller;
 
 import com.example.ShoppingCart.Response.ApiResponse;
+import com.example.ShoppingCart.model.Cart;
+import com.example.ShoppingCart.model.User;
+import com.example.ShoppingCart.service.User.UserService;
 import com.example.ShoppingCart.service.cart.CartItemService;
 import com.example.ShoppingCart.service.cart.CartService;
 import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
@@ -17,16 +20,17 @@ public class CartItemController {
 
     private final CartItemService cartItemService;
     private final CartService cartService;
+    private final UserService userService;
 
     @PostMapping("/addItems")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam(required = false) Long cartId,
+    public ResponseEntity<ApiResponse> addItemToCart(
                                                      @RequestParam Long productId,
                                                      @RequestParam Integer quantity){
         try {
-            if(cartId == null){
-                cartId = cartService.initializeNewCart();
-            }
-            cartItemService.addCartItem(cartId, productId, quantity);
+            User user = userService.getUserById(1L);
+            Cart cart = cartService.initializeNewCart(user);
+
+            cartItemService.addCartItem(cart.getId(), productId, quantity);
             return ResponseEntity.ok(new ApiResponse("Items Added Successfully", null));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
