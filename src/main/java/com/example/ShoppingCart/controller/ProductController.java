@@ -2,18 +2,19 @@ package com.example.ShoppingCart.controller;
 
 import com.example.ShoppingCart.Response.ApiResponse;
 import com.example.ShoppingCart.dto.ProductDto;
+import com.example.ShoppingCart.exceptions.AlreadyExistsException;
 import com.example.ShoppingCart.model.Product;
 import com.example.ShoppingCart.request.AddProductRequest;
 import com.example.ShoppingCart.request.ProductUpdateRequest;
 import com.example.ShoppingCart.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -121,16 +122,18 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest request){
         try {
             Product newProduct = productService.addProduct(request);
             return ResponseEntity.ok(new ApiResponse("Add Success", newProduct));
-        } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("error", e.getMessage()));
+        } catch (AlreadyExistsException e) {
+            return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}/update")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long id,@RequestBody ProductUpdateRequest request){
         try {
@@ -141,6 +144,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long id){
         try {

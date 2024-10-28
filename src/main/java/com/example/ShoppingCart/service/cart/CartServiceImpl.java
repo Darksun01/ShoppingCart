@@ -34,12 +34,12 @@ public class CartServiceImpl implements CartService{
         return cartRepository.save(cart);
     }
 
-    @Transactional()
+    @Transactional
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);
         cartItemRepository.deleteAllByCartId(id);
-        cart.getItems().clear();
+        cart.clearCart();
         cartRepository.deleteById(id);
     }
 

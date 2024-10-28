@@ -5,6 +5,7 @@ import com.example.ShoppingCart.dto.OrderDto;
 import com.example.ShoppingCart.exceptions.ResourceNotFoundException;
 import com.example.ShoppingCart.model.Order;
 import com.example.ShoppingCart.service.Order.OrderService;
+import com.example.ShoppingCart.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class OrderController {
 
     private final OrderService orderService;
+    private final CartService cartService;
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createOrder(@RequestParam Long userId){

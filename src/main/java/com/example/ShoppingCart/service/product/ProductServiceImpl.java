@@ -2,6 +2,7 @@ package com.example.ShoppingCart.service.product;
 
 import com.example.ShoppingCart.dto.ImageDto;
 import com.example.ShoppingCart.dto.ProductDto;
+import com.example.ShoppingCart.exceptions.AlreadyExistsException;
 import com.example.ShoppingCart.model.Category;
 import com.example.ShoppingCart.model.Image;
 import com.example.ShoppingCart.model.Product;
@@ -33,6 +34,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product addProduct(AddProductRequest request) {
+        if(productExists(request.getName(), request.getBrand())){
+            throw new AlreadyExistsException(request.getBrand() + " " + request.getName() + " already exists, you may update this product instead");
+        }
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName())).
                 orElseGet(() -> {
                     Category newCategory = new Category();
@@ -41,6 +45,10 @@ public class ProductServiceImpl implements ProductService{
                 });
         request.setCategory(category);
        return  productRepository.save(createProduct(request, category));
+    }
+
+    private Boolean productExists(String name, String brand){
+        return productRepository.existsByNameAndBrand(name, brand);
     }
 
     private Product createProduct(AddProductRequest addProductRequest, Category category){
